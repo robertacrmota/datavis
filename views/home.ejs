@@ -1,0 +1,20 @@
+<%- include("partials/header") %>
+
+<div class="container">
+    <div class="row">
+        <% visualizations.forEach( (vis) => { %>
+            <div class="col-sm-12 col-md-6 col-lg-3 mt-5">
+                <div class="card w-100">
+                    <img src="<%= vis.thumbnail_url %>" class="card-img-top" alt="thumbnail image">
+                    <div class="card-body">
+                      <p class="card-title"> <%= vis.title %> </p>
+                      <p class="card-text"> <%= vis.description %> </p>
+                      <a href="#" class="card-link">See more</a>
+                    </div>
+                  </div>
+            </div>
+        <% });  %>   
+    </div>
+  </div>
+
+<%- include("partials/footer") %>
