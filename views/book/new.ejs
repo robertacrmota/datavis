@@ -1,0 +1,44 @@
+<%- include("../partials/header") %>
+
+<div class="container">
+    <div class="jumbotron">
+        <br class="mt-5">
+        <h1 class="display-4"> add a book to our collection.</h1>
+        <hr class="mt-5">
+        <p class="d-inline">Sharing is caring <i style="transform: scale(.75)" class="fas fa-heart"></i></p>
+
+    </div>
+    <div class="container mb-5">
+        <form action="/books" method="POST">
+            <div class="form-group">
+                <label for="title">Title</label>
+                <input type="text" class="form-control" id="title" name="title" required>
+            </div>
+            <div class="form-row">
+                <div class="col-md-4 mb-3">
+                    <label for="author">Author</label>
+                    <input type="text" class="form-control" id="author" name="author" required>
+                </div>
+                <div class="col-md-2 mb-3">
+                    <label for="year">Published year</label>
+                    <input type="text" class="form-control" id="year" placeholder="yyyy" name="year" style="text-align: right" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="thumbnail_url">Thumbnail URL</label>
+                <input type="text" class="form-control" id="thumbnail_url" name="thumbnail_url"></input>
+            </div>
+            <div class="form-group">
+                <label for="url">Reference URL</label>
+                <input type="text" class="form-control" id="url" name="url"></input>
+            </div>
+            <div class="form-group">
+                <label for="description">Description</label>
+                <textarea type="text" class="form-control" id="description" name="description"></textarea>
+            </div>
+            <button class="btn btn-blue btn-sm" href="/books/new" role="button"> <i class="fas fa-plus"></i>  Add new book</button>
+        </form>
+    </div>
+</div>
+
+<%- include("../partials/footer") %>

@@ -1,7 +1,63 @@
 body, html {
     font-family: 'Overlock', cursive !important;
+    background-color: rgba(0, 0, 0, 0);
 }
 
+input:focus, textarea:focus, a {
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+.container-card-image {
+    position: relative;
+}
+.container-card-image:after {
+    content:'\A';
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background-color:rgba(255,255,255,0.6);
+    opacity:0;
+    transition: all .2s;
+    -webkit-transition: all .2s;
+}
+.card-image-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    opacity: 0;
+    transition: all .2s ease;
+    -webkit-transition: all .2s;
+    z-index: 1;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%)
+}
+.container-card-image:hover:after, .container-card-image:hover .card-image-icon  {
+    opacity:1;
+    cursor: pointer;
+}
+.card-image-icon i {
+    transform: scale(1.5);
+    color: #666;
+}
 .card-title {
     font-weight: 900;
+}
+.card-subtitle {
+    /*color: #aaa;*/
+    font-size: .8em;
+}
+
+.jumbotron {
+    background-color: rgba(0, 0, 0, 0);
+}
+
+.btn-blue {
+    color: #007bff;
+    transition: color .1s ease-in;
+}
+.btn-grey {
+    color: #ccc;
 }

@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 const Visualization = require('./models/visualization');
+const Book = require('./models/book');
 
-
-let visualizations = [
+const visualizations = [
     {
         title: "from Data to Viz",
         thumbnail_url: "https://www.data-to-viz.com/img/poster/poster_mockup_croped.jpg",
@@ -29,8 +29,68 @@ let visualizations = [
     }
 ];
 
-let seed = () => {
-    Visualization.deleteMany({}, (err) => {
+const books = [
+    {
+        title: "The Visual Display of Quantitative Information",
+        author: "Edward Tufte",
+        thumbnail_url: "https://images-na.ssl-images-amazon.com/images/I/41tNVlRHZNL._SX402_BO1,204,203,200_.jpg",
+        url: "https://www.amazon.co.uk/Visual-Display-Quantitative-Information/dp/0961392142/?tag=kib-21",
+        description: "The classic. A hugely-influential summary of precise and effective data display techniques.",
+        year: 1983
+    },
+    {
+        title: "How Charts Lie",
+        author: "Alberto Cairo",
+        thumbnail_url: "https://images-na.ssl-images-amazon.com/images/I/3107Hf2-DkL._SX330_BO1,204,203,200_.jpg",
+        url: "https://www.amazon.co.uk/How-Charts-Lie-Getting-Information/dp/1324001569/?tag=kib-21",
+        description: "How to decode and use visual information, examining contemporary data.",
+        year: 2019
+    },
+    {
+        title: "Visualization Analysis and Design",
+        author: "Tamara Munzner",
+        thumbnail_url: "https://images-na.ssl-images-amazon.com/images/I/615iwKBXgnL._SX403_BO1,204,203,200_.jpg",
+        url: "https://www.amazon.co.uk/Visualization-Analysis-Design-AK-Peters/dp/1466508914/?tag=kib-21",
+        description: "A systematic, comprehensive framework for thinking about visualization.",
+        year: 2014
+    },
+    {
+        title: "The Functional Art",
+        author: "Alberto Cairo",
+        thumbnail_url: "https://images-na.ssl-images-amazon.com/images/I/41caDbI6ktL._SX386_BO1,204,203,200_.jpg",
+        url: "https://www.amazon.com/gp/product/0321834739/ref=as_li_qf_asin_il_tl?ie=UTF8&tag=visuacinna-20&creative=9325&linkCode=as2&creativeASIN=0321834739&linkId=457257dbd788f7b4135df20aa642b1b0",
+        description: "How to use data visualization as a tool to see beyond lists of numbers and variables.",
+        year: 2011
+    },
+    {
+        title: "Information Visualization: Perception for Design",
+        author: "Colin Ware",
+        thumbnail_url: "https://images-na.ssl-images-amazon.com/images/I/51JfqnPe6rL._SX351_BO1,204,203,200_.jpg",
+        url: "https://www.amazon.com/Information-Visualization-Perception-Interactive-Technologies/dp/0128128755/ref=dp_ob_title_bk",
+        description: "Based on the science of perception and vision, the book presents the key vis principles for improved clarity, utility, and persuasiveness.",
+        year: 2020
+    },
+];
+
+const seed = () => {
+
+    // books
+    Book.deleteMany({}, err => {
+        if (err) {console.log(err);}
+        else {
+            console.log("successfully deleted all book documents!");
+            Book.insertMany(books, err => {
+                if (err) { console.log (err);}
+                else {
+                    console.log("successfully created book documents!");
+                }
+            });
+        }
+    });
+
+
+    // visualizations
+    Visualization.deleteMany({}, err => {
         if(err) {console.log(err);}
         else {
             console.log("successfully deleted all visualization documents!");
@@ -43,6 +103,6 @@ let seed = () => {
             });
         }
     });
-}
+};
 
 module.exports = seed;
