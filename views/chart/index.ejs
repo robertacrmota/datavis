@@ -1,6 +1,6 @@
 <%- include("../partials/header") %>
 
-<div class="container">
+<div class="container mb-5">
     <div class="jumbotron">
         <br class="mt-5">
         <p class="lead">Are you looking for</p>
@@ -8,7 +8,33 @@
         <p class="lead">to tell a story, make an informed decision, teach, and more?</p>
         <hr class="mt-5">
         <p style="display: inline">Here's a collection of hand-picked visualizations to get inspired by.</p>
-        <a style="float: right" class="btn btn-default btn-sm" href="#" role="button"> <i class="fas fa-plus"></i>  add a vis</a>
+        <a style="float: right" class="btn btn-blue btn-sm" href="/vis/new" role="button"> <i class="fas fa-plus"></i>  add a vis</a>
+    </div>
+    <div class="row">
+        <% charts.forEach(chart => { %>
+            <div class="col-sm-12 col-md-6 col-lg-3 mt-5">
+                <div class="card w-100">
+                    <div class="container-card-image">
+                        <a>
+                            <img src="<%= chart.thumbnail_url %>" class="card-img-top" alt="thumbnail image">
+                            <div class="card-image-icon">
+                                <div><a href="/vis/<%= chart.id %>"><i class="fas fa-plus"></i></a></div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-title"> <%= chart.type %> </p>
+                        <p class="card-text"> <%= chart.description.substring(0, 150) %>(...) </p>
+                        <form class="d-inline" action="/vis/<%= chart.id %>/edit">
+                            <button class="btn btn-grey p-0" class="card-link"><i class="far fa-edit"></i></button>
+                        </form>
+                        <form class="d-inline" action="/vis/<%= chart.id %>?_method=DELETE" method="POST">
+                            <button class="btn btn-grey p-0" ><i class="far fa-trash-alt"></i></button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        <% });  %>
     </div>
 </div>
 

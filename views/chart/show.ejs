@@ -1,0 +1,90 @@
+<%- include("../partials/header") %>
+
+<div class="container">
+    <br>
+    <h1 class="display-6 mt-5"><%= chart.type %></h1>
+    <hr>
+
+    <div class="row mt-5">
+        <!-- left-side bar	 -->
+        <div class="col-sm-12 col-md-5">
+            <img src="<%= chart.thumbnail_url %>" class="card-img-top">
+        </div>
+
+        <div class="col-sm-12 col-md-4 mt-5 mt-md-0">
+            <h4>DESCRIPTION</h4>
+            <p> <%= chart.description %></p>
+        </div>
+
+        <!-- right-side container	 -->
+        <div class="col-sm-11 col-md-1 mx-auto p-0">
+            <div class="container">
+                <h4>FUNCTIONS</h4>
+                <ul class="p-0 m-0 ml-3">
+                    <% chart.functions.forEach(fn => { %>
+                        <li class="m-0 p-0"> <%= fn %></li>
+                    <% });%>
+                </ul>
+                <br>
+                <hr my-5>
+                <h4>SHAPE</h4>
+                <ul class="p-0 m-0 ml-3">
+                    <% chart.shapes.forEach(shape => { %>
+                        <li class="m-0 p-0"> <%= shape %></li>
+                    <% });%>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <br><br><br>
+    <div class="row my-5">
+        <h4>OTHER REFERENCES</h4>
+        <a class="btn btn-blue btn-sm ml-auto" href="#" role="button" data-toggle="modal" data-target="#modalAddReference"> <i class="fas fa-plus"></i>  add a reference</a>
+        <div class="container">
+            <div class="row">
+                <% chart.samples.forEach(chart =>{ %>
+                    <div class="col-10 col-md-3 my-3 px-3 px-md-1">
+                        <div>
+                            <a href="<%= chart.url %>" target="_blank">
+                                <img src="<%=  chart.thumbnail_url %>" class="img-fluid img-vis-sample">
+                            </a>
+                        </div>
+                    </div>
+                <% }); %>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal HTML Markup -->
+<div id="modalAddReference" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title text-xs-center">Add a reference</h4>
+            </div>
+            <div class="modal-body">
+                <form role="form" method="POST" action="/vis/<%= chart.id%>/editRef?_method=PUT">
+                    <div class="form-group">
+                        <label for="thumbnail_url">Thumbnail URL</label>
+                        <input type="text" class="form-control" id="thumbnail_url" name="thumbnail_url" required></input>
+                    </div>
+                    <div class="form-group">
+                        <label for="url">Reference URL</label>
+                        <input type="text" class="form-control" id="url" name="url" required></input>
+                    </div>
+                    <div class="form-group">
+                        <div>
+                            <button type="submit" class="btn btn-blue"> Add</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer text-xs-center">
+                Don't have an account? <a href="/auth/register">Sign up »</a>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<%- include("../partials/footer") %>

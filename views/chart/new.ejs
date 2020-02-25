@@ -1,19 +1,56 @@
-<%- include('../partials/header') %>
+<%- include("../partials/header") %>
 
 <div class="container">
     <div class="jumbotron">
         <br class="mt-5">
-        <p class="lead">Are you looking for</p>
-        <h1 class="display-4"> information on dataviz literacy?</h1>
+        <h1 class="display-4"> Add a vis to our collection.</h1>
         <hr class="mt-5">
-        <p class="d-inline">Here's a collection of dataviz books everyone should read.</p>
-        <a class="btn btn-default btn-sm float-right" href="/books/new" role="button"> <i class="fas fa-plus"></i>  add a book</a>
-    </div>
-    <div class="container">
-        <div class="row">
+        <p class="d-inline">Sharing is caring <i style="transform: scale(.75)" class="fas fa-heart"></i></p>
 
-        </div>
+    </div>
+    <div class="container mb-5">
+        <form action="/vis" method="POST">
+            <div class="form-group">
+                <label for="type">Name</label>
+                <input type="text" class="form-control" id="type" name="type" required>
+            </div>
+            <div class="form-group">
+                <label for="thumbnail_url">Thumbnail URL</label>
+                <input type="text" class="form-control" id="thumbnail_url" name="thumbnail_url"></input>
+            </div>
+            <div class="form-group">
+                <label for="description">Description</label>
+                <textarea type="text" class="form-control" id="description" name="description"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="functions">Functions (select all that apply)</label>
+                <select multiple class="form-control" id="functions" name="functions">
+                    <option>Distribution</option>
+                    <option>Correlation</option>
+                    <option>Ranking</option>
+                    <option>Part of a whole</option>
+                    <option>Time evolution</option>
+                    <option>Line</option>
+                    <option>Map</option>
+                    <option>Flow</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="shapes">Shapes (select all that apply)</label>
+                <select multiple class="form-control" id="shapes" name="shapes">
+                    <option>Area</option>
+                    <option>Bar</option>
+                    <option>Circle</option>
+                    <option>Dot</option>
+                    <option>Glyph</option>
+                    <option>Line</option>
+                    <option>Map</option>
+                    <option>Polygon/Triangle/Square</option>
+                </select>
+            </div>
+            <button class="btn btn-blue btn-sm" href="/vis/new" role="button">Add</button>
+        </form>
     </div>
 </div>
 
-<%- include('../partials/footer') %>
+<%- include("../partials/footer") %>

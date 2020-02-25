@@ -1,0 +1,56 @@
+<%- include("../partials/header") %>
+
+<div class="container">
+    <div class="jumbotron">
+        <br class="mt-5">
+        <h1 class="display-4"> Add a vis to our collection.</h1>
+        <hr class="mt-5">
+        <p class="d-inline">Sharing is caring <i style="transform: scale(.75)" class="fas fa-heart"></i></p>
+
+    </div>
+    <div class="container mb-5">
+        <form action="/vis/<%= chart.id %>?_method=PUT" method="POST">
+            <div class="form-group">
+                <label for="type">Name</label>
+                <input type="text" class="form-control" id="type" name="type" required value="<%= chart.type %>">
+            </div>
+            <div class="form-group">
+                <label for="thumbnail_url">Thumbnail URL</label>
+                <input type="text" class="form-control" id="thumbnail_url" name="thumbnail_url" value="<%= chart.thumbnail_url %>"></input>
+            </div>
+            <div class="form-group">
+                <label for="description">Description</label>
+                <textarea type="text" class="form-control" id="description" name="description"> <%= chart.description %></textarea>
+            </div>
+            <div class="form-group">
+                <label for="functions">Functions (select all that apply)</label>
+                <select multiple class="form-control" id="functions" name="functions">
+                    <option <%=  (chart.functions.includes("Distribution")) ? "selected" : "" %>>Distribution</option>
+                    <option <%=  (chart.functions.includes("Correlation")) ? "selected" : "" %>>Correlation</option>
+                    <option <%=  (chart.functions.includes("Ranking")) ? "selected" : "" %>>Ranking</option>
+                    <option <%=  (chart.functions.includes("Part of a whole")) ? "selected" : "" %>>Part of a whole</option>
+                    <option <%=  (chart.functions.includes("Time evolution")) ? "selected" : "" %>>Time evolution</option>
+                    <option <%=  (chart.functions.includes("Line")) ? "selected" : "" %>>Line</option>
+                    <option <%=  (chart.functions.includes("Map")) ? "selected" : "" %>>Map</option>
+                    <option <%=  (chart.functions.includes("Flow")) ? "selected" : "" %>>Flow</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="shapes">Shapes (select all that apply)</label>
+                <select multiple class="form-control" id="shapes" name="shapes">
+                    <option <%=  (chart.shapes.includes("Area")) ? "selected" : "" %>>Area</option>
+                    <option <%=  (chart.shapes.includes("Bar")) ? "selected" : "" %>>Bar</option>
+                    <option <%=  (chart.shapes.includes("Circle")) ? "selected" : "" %>>Circle</option>
+                    <option <%=  (chart.shapes.includes("Dot")) ? "selected" : "" %>>Dot</option>
+                    <option <%=  (chart.shapes.includes("Glyph")) ? "selected" : "" %>>Glyph</option>
+                    <option <%=  (chart.shapes.includes("Line")) ? "selected" : "" %>>Line</option>
+                    <option <%=  (chart.shapes.includes("Map")) ? "selected" : "" %>>Map</option>
+                    <option <%=  (chart.shapes.includes("Polygon/Triangle/Square")) ? "selected" : "" %>>Polygon/Triangle/Square</option>
+                </select>
+            </div>
+            <button class="btn btn-blue btn-sm" href="/vis/new" role="button">Update</button>
+        </form>
+    </div>
+</div>
+
+<%- include("../partials/footer") %>

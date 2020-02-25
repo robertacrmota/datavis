@@ -18,7 +18,6 @@ app.use(methodOverride("_method"));
 
 // DB --------------------------------------------------------------
 const Visualization = require('./models/visualization');
-const Book = require('./models/book');
 const seed = require('./seed_db');
 
 // set db configurations
@@ -36,8 +35,10 @@ mongoose.connect('mongodb://localhost/datavisApp')
 
 // HTTP REQUESTS -------------------------------------------------------
 const BookRouter = require('./routes/book');
+const ChartRouter = require('./routes/chart');
 
 app.use("/books", BookRouter);
+app.use("/vis", ChartRouter);
 
 // app.all('*', function(req, res, next) {
 //     res.header('Access-Control-Allow-Origin', '*');
@@ -47,18 +48,8 @@ app.use("/books", BookRouter);
 //   });
 
 app.get('/', (req, res) => {
-    // retrieve all visualizations from the db
-    Visualization.find({}, (err, visualizations) => {
-        if (err) {console.log(err); res.redirect("back");}
-        else {
-            res.render('home', {visualizations: visualizations});
-        }
-    })
+    res.redirect('/vis');
 });
-//
-// app.get('/charts', (req,res) => {
-//    res.render('chart/index.ejs');
-// });
 
 
 // SERVER LISTENER -----------------------------------------------------

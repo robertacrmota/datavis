@@ -2,8 +2,7 @@ body, html {
     font-family: 'Overlock', cursive !important;
     background-color: rgba(0, 0, 0, 0);
 }
-
-input:focus, textarea:focus, a {
+input:focus, textarea:focus, a, a:active {
     outline: none !important;
     box-shadow: none !important;
 }
@@ -60,4 +59,17 @@ input:focus, textarea:focus, a {
 }
 .btn-grey {
     color: #ccc;
+}
+
+.img-vis-sample {
+    filter: grayscale(100%);
+    opacity: .5;
+    transition: .2s;
+    -webkit-transition: .2s;
+}
+
+.img-vis-sample:hover {
+    cursor: pointer;
+    filter: grayscale(0%);
+    opacity: 1;
 }

@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Visualization = require('./models/visualization');
+const Chart = require('./models/chart');
 const Book = require('./models/book');
 
 const visualizations = [
@@ -27,6 +28,55 @@ const visualizations = [
         url: "https://medium.com/nightingale/d3-and-react-a-design-pattern-for-responsive-charts-f77337d37ab9",
         description: "A collection of articles that explain how to build responsive D3 charts inside of React."
     }
+];
+
+const charts = [
+    {
+        type: "Skankey Diagram",
+        thumbnail_url: "https://i.redd.it/lopswoi58io21.png",
+        description: "Sankey diagrams are a specific type of flow diagram, in which the width of the arrows is shown proportionally to the flow quantity. " +
+                     "They put a visual emphasis on the major transfers or flows within a system, locating dominant contributions to an overall flow.",
+        functions: ["Correlation"],
+        shapes: ["Area", "Line"],
+        samples: [{
+                thumbnail_url: "https://46gyn61z4i0t1u1pnq2bbk2e-wpengine.netdna-ssl.com/wp-content/uploads/2018/08/sankey-colors-example.jpg",
+                url: "https://www.displayr.com/using-colors-effectively-in-sankey-diagrams/"
+            },
+            {
+                thumbnail_url: "http://www.sankey-diagrams.com/wp-content/gallery/x_sankey_219/cache/wood_fibre_flow_canada.PNG-nggid041327-ngg0dyn-0x0x100-00f0w010c010r110f110r010t010.PNG",
+                url: "http://www.sankey-diagrams.com/tracing-wood-fibre-in-canadian-forestry/"
+            },
+            {
+                thumbnail_url: "http://www.stenvall-skoeld.com/wp-content/uploads/2012/02/Chinese-consumer-consumption-pattern-e1330256812150.png",
+                url: "http://www.stenvall-skoeld.com/1294/chinese_consumer_1"
+            },
+            {
+                thumbnail_url: "https://d2uusema5elisf.cloudfront.net/books/fullstack-d3/images/12-animated-sankey/finished.png",
+                url: "https://www.newline.co/books/fullstack-d3/animated-sankey-diagram"
+        }],
+    },
+    // {
+    //     type: String,
+    //     thumbnail_url: String,
+    //     description: String,
+    //     functions: [String],
+    //     shapes: [String],
+    //     samples: [{
+    //         thumbnail_url: String,
+    //         url: String
+    //     }],
+    // },
+    // {
+    //     type: String,
+    //     thumbnail_url: String,
+    //     description: String,
+    //     functions: [String],
+    //     shapes: [String],
+    //     samples: [{
+    //         thumbnail_url: String,
+    //         url: String
+    //     }],
+    // },
 ];
 
 const books = [
@@ -88,19 +138,25 @@ const seed = () => {
         }
     });
 
+    // charts
+    Chart.deleteMany({}, err => {
+        if (err) {console.log(err);}
+        else {
+            console.log("successfully deleted all chart documents!");
+            Chart.insertMany(charts, err => {
+                if (err) { console.log (err);}
+                else {
+                    console.log("successfully created chart documents!");
+                }
+            });
+        }
+    });
 
     // visualizations
     Visualization.deleteMany({}, err => {
         if(err) {console.log(err);}
         else {
             console.log("successfully deleted all visualization documents!");
-
-            Visualization.insertMany(visualizations, (err) => {
-                if (err) { console.log (err);}
-                else {
-                    console.log("successfully created visualization documents!");
-                }
-            });
         }
     });
 };
