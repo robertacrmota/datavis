@@ -1,7 +1,8 @@
-const mongoose = require('mongoose');
-const Chart = require('./models/chart'),
-      Book = require('./models/book'),
-      User = require('./models/user');
+const mongoose  = require('mongoose');
+const Chart     = require('./models/chart'),
+      Book      = require('./models/book'),
+      User      = require('./models/user'),
+      Comment   = require('./models/comment');
 
 const visualizations = [
     {
@@ -32,6 +33,23 @@ const visualizations = [
 
 const charts = [
     {
+        type: "Chord Diagram",
+        thumbnail_url: "https://i.stack.imgur.com/M9g4m.jpg",
+        description: "A chord diagram is a graphical method of displaying the inter-relationships between data in a matrix. " +
+            "The data is arranged radially around a circle with the relationships between the points typically drawn as arcs connecting the data together.\n\n" +
+            "A Non-ribbon Chord Diagram is a stripped-down version of a Chord Diagram, with only the connection lines showing. This provides more emphasis on the connections within the data.",
+        functions: ["Correlation"],
+        shapes: ["Circle"],
+        samples: [{
+            thumbnail_url: "https://www.data-to-viz.com/graph/chord_files/figure-html/unnamed-chunk-1-1.png",
+            url: "https://www.data-to-viz.com/graph/chord.html"
+        },
+            {
+                thumbnail_url: "https://www.data-to-viz.com/graph/edge_bundling_files/figure-html/unnamed-chunk-3-1.png",
+                url: "https://vega.github.io/vega/examples/edge-bundling/"
+            }],
+    },
+    {
         type: "Skankey Diagram",
         thumbnail_url: "https://i.redd.it/lopswoi58io21.png",
         description: "Sankey diagrams are a specific type of flow diagram, in which the width of the arrows is shown proportionally to the flow quantity. " +
@@ -43,18 +61,76 @@ const charts = [
                 url: "https://www.displayr.com/using-colors-effectively-in-sankey-diagrams/"
             },
             {
-                thumbnail_url: "http://www.sankey-diagrams.com/wp-content/gallery/x_sankey_219/cache/wood_fibre_flow_canada.PNG-nggid041327-ngg0dyn-0x0x100-00f0w010c010r110f110r010t010.PNG",
-                url: "http://www.sankey-diagrams.com/tracing-wood-fibre-in-canadian-forestry/"
-            },
-            {
-                thumbnail_url: "http://www.stenvall-skoeld.com/wp-content/uploads/2012/02/Chinese-consumer-consumption-pattern-e1330256812150.png",
-                url: "http://www.stenvall-skoeld.com/1294/chinese_consumer_1"
-            },
-            {
                 thumbnail_url: "https://d2uusema5elisf.cloudfront.net/books/fullstack-d3/images/12-animated-sankey/finished.png",
                 url: "https://www.newline.co/books/fullstack-d3/animated-sankey-diagram"
-        }],
+            },
+            {
+                thumbnail_url: "https://datavizproject.com/wp-content/uploads/2015/11/c7bfd13fe137965d30e266a2734eb553.jpg",
+                url: "http://bldgwlf.com/density-design/"
+            }],
     },
+    {
+        type: "Stream Graph",
+        thumbnail_url:"https://www.wired.com/magazine/wp-content/images/18-11/ff_311_newyork1b_f.jpg",
+        description: "A streamgraph is a type of stacked area graph which is displaced around a central axis, resulting in a flowing, organic shape." +
+                     "Stacked area charts like streamgraphs are criticized. It can be hard to read the evolution of a specific group since the reader " +
+                     "has to substract the other groups in his mind. It is often better to use small multiple or line plot instead.",
+        functions: ["Distribution", "Part of a whole"],
+        shapes: ["Area"],
+        samples: [{
+            thumbnail_url: "https://datavizproject.com/wp-content/uploads/2015/11/cover_mania_0.jpg",
+            url: "https://improving-visualisation.org/vis/id=112"
+        }]
+    },
+    {
+        type: "Countour plot",
+        thumbnail_url: "http://www.idlcoyote.com/graphics_tips/contourcolors_1.png",
+        description: "A Contour Plot is a graphic representation of the relationships among three numeric variables in two dimensions. " +
+                    "Two variables are for X and Y axes, and a third variable Z is for contour levels. The contour levels are plotted as curves; " +
+                    "the area between curves can be color coded to indicate interpolated values.",
+        functions: ["Distribution"],
+        shapes: ["Area"],
+        samples: [],
+    },
+    {
+        type: "Flow map",
+        thumbnail_url: "https://datavizproject.com/wp-content/uploads/2015/11/Sk%C3%A6rmbillede-2017-10-20-kl.-16.39.24.png",
+        description: "Flow Maps in cartography can be defined as a mix of maps and Sankey diagrams, that show the movement of quantities from one " +
+            "location to another, such as the number of people travelling, the amount of goods being traded, or the number of packets in a network.\n" +
+            "The width of the connections shows the quantity. Sometimes you flow maps with arrows to display the direction of the movement.\n" +
+            "The most famous example of a flow map, is Minard’s map of Napoleon’s disastrous Russian campaign of 1812.",
+        functions: ["Correlation", "Distribution", "Map", "Flow"],
+        shapes: ["Area", "Line"],
+        samples: [
+            {
+                thumbnail_url: "http://visualoop.com/media/2015/03/Carte-bestiaux.jpg",
+                url: "http://visualoop.com/blog/31064/vintage-infodesign-112"
+            }
+        ]
+    },
+    {
+        type: "Spiral Histogram",
+        thumbnail_url: "https://datavizproject.com/wp-content/uploads/2017/09/Sk%C3%A6rmbillede-2017-09-06-kl.-16.51.14.png",
+        description: "The spiral histogram also called a condegram is a histogram but with a timeline along a spiral shape. " +
+                     "The spiral design makes it possible to compare cycles, but keeping the continuous timeline along the spiral.",
+        functions: ["Correlation"],
+        shapes: ["Shape"],
+        samples: [],
+    },
+    {
+        type: "Arc diagram",
+        thumbnail_url: "https://datavizproject.com/wp-content/uploads/2015/11/all_books.png",
+        description: "An Arc Diagram uses a one-dimensional layout of nodes with circular arcs to represent connections. " +
+                    "Nodes are placed along a single line and arcs are used to display links between the nodes. The thickness of the lines can display frequency between the nodes.",
+        functions: ["Correlation"],
+        shapes: ["Line", "Dot"],
+        samples: [
+            {
+                thumbnail_url: "https://6hohzg.dm2302.livefilestore.com/y4m32SWykNrjfDcDtUeAWk-GmdTDZjkee8PawcaOpOAki8jo-SabH5ROI_EIUcUd6E6Zjww8hWlnKvspuWbBx476tl00p24aLEvDIvBRpHTZLzUvyNet8p7FowdY9bDwxsxhdFm1pwb-jerT1pYuQVh345xLtbVteIgghqSB6BZmcilZTvlum45h3MANWAhOGm0_hYibccxgAhI3LwOiCdHAw?width=2600&height=1320&cropmode=none",
+                url: "http://www.datavizdoneright.com/2018/02/bussed-out.html"
+            }
+        ]
+    }
     // {
     //     type: String,
     //     thumbnail_url: String,
@@ -131,10 +207,17 @@ const seed = async () => {
             console.log("successfully deleted all book documents!");
             Book.insertMany(books, err => {
                 if (err) { console.log (err);}
-                else {
-                    console.log("successfully created book documents!");
-                }
+
+                console.log("successfully created book documents!");
             });
+        }
+    });
+
+    // comments
+    Comment.deleteMany({}, err => {
+        if (err) {console.log(err);}
+        else {
+            console.log("successfully deleted all comment documents!");
         }
     });
 
@@ -146,12 +229,11 @@ const seed = async () => {
         if (err) {console.log(err);}
         else {
             console.log("successfully deleted all chart documents!");
-            charts.forEach(chart => Object.assign(chart, {author: authorDefault}));
+            charts.forEach(chart => Object.assign(chart, {author: authorDefault, comments: []}));
             Chart.insertMany(charts, err => {
                 if (err) { console.log (err);}
-                else {
-                    console.log("successfully created chart documents!");
-                }
+
+                console.log("successfully created chart documents!");
             });
         }
     });

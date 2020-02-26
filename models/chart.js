@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const User = require('./user');
 
 const chartSampleSchema = new mongoose.Schema({
    thumbnail_url: String,
@@ -17,8 +16,8 @@ const chartSchema = new mongoose.Schema({
         id: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
         username: String
     },
+    comments: [{type: mongoose.Schema.Types.ObjectId, ref: "Comment"}]
 });
 
 const Chart = mongoose.model('Chart', chartSchema);
-
 module.exports = Chart;

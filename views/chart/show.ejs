@@ -1,5 +1,6 @@
 <%- include("../partials/header") %>
 <%- include("../partials/loginModal") %>
+<%- include("../partials/referenceModal") %>
 
 <div class="container">
     <br>
@@ -18,7 +19,7 @@
         </div>
 
         <!-- right-side container	 -->
-        <div class="col-sm-11 col-md-1 mx-auto p-0">
+        <div class="col-sm-11 col-md-2 mx-auto p-0">
             <div class="container">
                 <h4>FUNCTIONS</h4>
                 <ul class="p-0 m-0 ml-3">
@@ -38,6 +39,7 @@
         </div>
     </div>
     <br><br><br>
+
     <div class="row my-5">
         <h4 class="">OTHER REFERENCES</h4>
         <% if (currentUser) { %>
@@ -50,47 +52,67 @@
     </div>
 
     <div class="row">
-        <% chart.samples.forEach(chart =>{ %>
-            <div class="col-10 col-md-3 my-3 px-3 px-md-1">
-                <div>
-                    <a href="<%= chart.url %>" target="_blank">
-                        <img src="<%=  chart.thumbnail_url %>" class="img-fluid img-vis-sample">
-                    </a>
+        <% if (!chart.samples.length) { %>
+            <p>No references have been posted yet. </p>
+        <% } else { %>
+            <% chart.samples.forEach(chart =>{ %>
+                <div class="col-10 col-md-3 my-3 px-3 px-md-1">
+                    <div>
+                        <a href="<%= chart.url %>" target="_blank">
+                            <img src="<%=  chart.thumbnail_url %>" class="img-fluid img-vis-sample">
+                        </a>
+                    </div>
                 </div>
-            </div>
-        <% }); %>
+            <% }); %>
+        <% } %>
     </div>
-</div>
 
-<!-- Modal HTML Markup -->
-<div id="modalAddReference" class="modal fade">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title text-xs-center">Add a reference</h4>
+    <div class="row my-5">
+        <h4 class="">COMMENTS</h4>
+        <% if (!currentUser) { %>
+            <div class="d-flex align-items-center ml-auto mt-3 mt-md-0 ">
+                Want to contribute? <a class="btn btn-blue" href="#" role="button" data-toggle="modal" data-target="#modalLogIn"> Log in »</a>
             </div>
-            <div class="modal-body">
-                <form role="form" method="POST" action="/vis/<%= chart.id%>/editRef?_method=PUT">
-                    <div class="form-group">
-                        <label for="thumbnail_url">Thumbnail URL</label>
-                        <input type="text" class="form-control" id="thumbnail_url" name="thumbnail_url" required></input>
-                    </div>
-                    <div class="form-group">
-                        <label for="url">Reference URL</label>
-                        <input type="text" class="form-control" id="url" name="url" required></input>
-                    </div>
-                    <div class="form-group">
-                        <div>
-                            <button type="submit" class="btn btn-blue"> Add</button>
+        <% } %>
+    </div>
+
+    <div class="row">
+        <% if (!chart.comments.length) { %>
+            <p>No comments have been posted yet. </p>
+        <% } else { %>
+            <% chart.comments.forEach((comment, i) =>{ %>
+                <div class="col-12 px-3 px-md-1">
+                    <span class="float-right"> <%= comment.date.toLocaleDateString() %></span>
+                    <p class="font-weight-bold"> <%= comment.author.username %> </p>
+                    <% if (currentUser && currentUser._id.equals(comment.author.id)) { %>
+                        <div class="float-right">
+                            <form class="d-inline" action="/vis/<%= chart.id %>/comments/<%= comment.id %>/edit?_method=PUT" method="POST">
+                                <button class="btn btn-grey p-0" class="card-link"><i class="far fa-edit"></i></button>
+                            </form>
+                            <form class="d-inline" action="/vis/<%= chart.id %>/comments/<%= comment.id %>?_method=DELETE" method="POST">
+                                <button class="btn btn-grey p-0" ><i class="far fa-trash-alt"></i></button>
+                            </form>
                         </div>
+                    <% } %>
+                    <p> <%= comment.text %> </p>
+                    <% if (i < chart.comments.length - 1) { %>
+                        <hr>
+                    <% } %>
+                </div>
+            <% }); %>
+        <% } %>
+        <% if(currentUser) { %>
+            <div class="col-12 my-3 px-3 px-md-1">
+                <form class="border rounded p-2" role="form" method="POST" action="/vis/<%= chart.id %>/comments">
+                    <div class="form-group">
+                        <label for="text"></label>
+                        <textarea type="text" class="form-control" id="text" name="text" required></textarea>
                     </div>
+                    <button type="submit" class="btn btn-blue"> Post your comment</button>
                 </form>
             </div>
-            <div class="modal-footer text-xs-center">
-                Don't have an account? <a href="/auth/register">Sign up »</a>
-            </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
+        <% } %>
+    </div>
+</div>
 
 <%- include("../partials/footer") %>

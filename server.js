@@ -52,13 +52,15 @@ mongoose.connect('mongodb://localhost/datavisApp')
 });
 
 // HTTP REQUESTS -------------------------------------------------------
-const   BookRouter = require('./routes/book'),
-        ChartRouter = require('./routes/chart'),
-        IndexRouter = require('./routes/index');
+const   BookRouter      = require('./routes/book'),
+        ChartRouter     = require('./routes/chart'),
+        CommentRouter   = require('./routes/comment'),
+        IndexRouter     = require('./routes/index');
 
 app.use("/", IndexRouter);
 app.use("/books", BookRouter);
 app.use("/vis", ChartRouter);
+app.use("/vis/:visId/comments", CommentRouter);
 
 
 // app.all('*', function(req, res, next) {

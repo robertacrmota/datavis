@@ -22,9 +22,7 @@ router.post('/signup', (req, res) => {
             res.redirect("/signup");
         }
         else {
-            console.log("Create new user");
-            console.log(newUser);
-            passport.authenticate("local")(req, res, () => res.redirect("/vis"));
+            passport.authenticate("local")(req, res, () => res.redirect("back"));
         }
     });
 });
@@ -40,7 +38,7 @@ router.post('/signup', (req, res) => {
 router.post("/login", passport.authenticate("local", {
     successRedirect: "/vis",
     failureRedirect: "/login"
-}), (req, res) => res.redirect("login"));
+}), (req, res) => res.redirect("back"));
 
 // log out user
 router.get("/logout", function(req, res){

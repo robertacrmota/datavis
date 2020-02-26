@@ -10,6 +10,11 @@ input:focus, textarea:focus, a, a:active {
     box-shadow: none !important;
 }
 
+select option:checked {
+    background-color: #007bff !important;
+    color: #fff !important;
+}
+
 .container-card-image {
     position: relative;
 }
