@@ -1,13 +1,16 @@
-/*
-NEXT: NAVBAR,
-      CREATE, EDIT, DELETE VISUALIZATION
-*/
-const methodOverride = require('method-override');
-const mongoose = require('mongoose');
-const express = require('express');
-const bodyParser = require('body-parser');
+const   methodOverride          = require('method-override'),
+        mongoose                = require('mongoose'),
+        express                 = require('express'),
+        bodyParser              = require('body-parser'),
+        passport                = require("passport"),
+        LocalStrategy           = require("passport-local"),
+        passportLocalMongoose   = require("passport-local-mongoose"),
+        User                    = require('./models/user');
+
+
 const app = express();
 const port = 3000;
+
 
 app.use(express.static(__dirname + '/public'));
 app.set('views', __dirname + '/views');
@@ -15,9 +18,24 @@ app.set('view engine', 'ejs');
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
+app.use(require("express-session")({
+    secret: "Information used to encode/decode session data",
+    resave: false,
+    saveUninitialized: false
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
+app.use(function(req, res, next) {
+    res.locals.currentUser = req.user;
+    next();
+});
 
 // DB --------------------------------------------------------------
-const Visualization = require('./models/visualization');
 const seed = require('./seed_db');
 
 // set db configurations
@@ -34,11 +52,14 @@ mongoose.connect('mongodb://localhost/datavisApp')
 });
 
 // HTTP REQUESTS -------------------------------------------------------
-const BookRouter = require('./routes/book');
-const ChartRouter = require('./routes/chart');
+const   BookRouter = require('./routes/book'),
+        ChartRouter = require('./routes/chart'),
+        IndexRouter = require('./routes/index');
 
+app.use("/", IndexRouter);
 app.use("/books", BookRouter);
 app.use("/vis", ChartRouter);
+
 
 // app.all('*', function(req, res, next) {
 //     res.header('Access-Control-Allow-Origin', '*');
@@ -47,9 +68,7 @@ app.use("/vis", ChartRouter);
 //     next();
 //   });
 
-app.get('/', (req, res) => {
-    res.redirect('/vis');
-});
+app.get('/', (req, res) => res.redirect('/vis'));
 
 
 // SERVER LISTENER -----------------------------------------------------

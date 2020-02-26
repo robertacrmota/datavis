@@ -1,6 +1,9 @@
 body, html {
     font-family: 'Overlock', cursive !important;
     background-color: rgba(0, 0, 0, 0);
+    height:100%;
+    margin:0;
+    padding:0
 }
 input:focus, textarea:focus, a, a:active {
     outline: none !important;
@@ -35,6 +38,8 @@ input:focus, textarea:focus, a, a:active {
 }
 .container-card-image:hover:after, .container-card-image:hover .card-image-icon  {
     opacity:1;
+}
+.container-card-image a:hover{
     cursor: pointer;
 }
 .card-image-icon i {
@@ -72,4 +77,12 @@ input:focus, textarea:focus, a, a:active {
     cursor: pointer;
     filter: grayscale(0%);
     opacity: 1;
+}
+
+.label-author {
+    font-size: .9em;
+    color: rgba(0, 0, 0, 0.6);
+}
+.label-author span {
+    font-style: italic;
 }

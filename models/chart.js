@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const User = require('./user');
 
 const chartSampleSchema = new mongoose.Schema({
    thumbnail_url: String,
@@ -12,6 +13,10 @@ const chartSchema = new mongoose.Schema({
     functions: [String],
     shapes: [String],
     samples: [chartSampleSchema],
+    author: {
+        id: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+        username: String
+    },
 });
 
 const Chart = mongoose.model('Chart', chartSchema);

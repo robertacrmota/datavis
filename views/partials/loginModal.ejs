@@ -1,0 +1,29 @@
+<div id="modalLogIn" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title text-xs-center">User login</h4>
+            </div>
+            <div class="modal-body">
+                <form role="form" method="POST" action="/login">
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <input type="text" class="form-control" id="username" name="username" required></input>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" class="form-control" id="password" name="password" required></input>
+                    </div>
+                    <div class="form-group">
+                        <div>
+                            <button type="submit" class="btn btn-blue">Log in</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer text-xs-center">
+                Don't have an account? <a class="btn btn-blue" href="/signup">Sign up »</a>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

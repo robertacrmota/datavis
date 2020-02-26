@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
-const Visualization = require('./models/visualization');
-const Chart = require('./models/chart');
-const Book = require('./models/book');
+const Chart = require('./models/chart'),
+      Book = require('./models/book'),
+      User = require('./models/user');
 
 const visualizations = [
     {
@@ -122,7 +122,7 @@ const books = [
     },
 ];
 
-const seed = () => {
+const seed = async () => {
 
     // books
     Book.deleteMany({}, err => {
@@ -139,24 +139,20 @@ const seed = () => {
     });
 
     // charts
+    const userDefault = await User.findOne({username: 'roberta.cmota@gmail.com'});
+    const authorDefault = { id: userDefault._id, username: userDefault.username };
+
     Chart.deleteMany({}, err => {
         if (err) {console.log(err);}
         else {
             console.log("successfully deleted all chart documents!");
+            charts.forEach(chart => Object.assign(chart, {author: authorDefault}));
             Chart.insertMany(charts, err => {
                 if (err) { console.log (err);}
                 else {
                     console.log("successfully created chart documents!");
                 }
             });
-        }
-    });
-
-    // visualizations
-    Visualization.deleteMany({}, err => {
-        if(err) {console.log(err);}
-        else {
-            console.log("successfully deleted all visualization documents!");
         }
     });
 };

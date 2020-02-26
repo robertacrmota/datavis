@@ -1,5 +1,5 @@
-const express = require('express');
-const Chart = require('../models/chart');
+const express   = require('express');
+const Chart     = require('../models/chart');
 
 const router = express.Router({mergeParams: true});
 
@@ -21,7 +21,8 @@ router.get('/new', (req, res) => {
 
 // CREATE - create new chart, then redirect somewhere
 router.post('/', (req, res) => {
-    const chart = Object.assign(req.body, {samples: []});
+    const author = { id: req.user._id, username: req.user.username };
+    const chart = Object.assign(req.body, {author, samples: []});
 
     Chart.create(chart, (err, chart) => {
         if (err) { console.log(err); res.redirect("back"); }

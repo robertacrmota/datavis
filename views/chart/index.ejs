@@ -1,4 +1,5 @@
 <%- include("../partials/header") %>
+<%- include("../partials/loginModal") %>
 
 <div class="container mb-5">
     <div class="jumbotron">
@@ -8,7 +9,13 @@
         <p class="lead">to tell a story, make an informed decision, teach, and more?</p>
         <hr class="mt-5">
         <p style="display: inline">Here's a collection of hand-picked visualizations to get inspired by.</p>
-        <a style="float: right" class="btn btn-blue btn-sm" href="/vis/new" role="button"> <i class="fas fa-plus"></i>  add a vis</a>
+        <% if (currentUser) { %>
+            <a style="float: right" class="btn btn-blue btn-sm" href="/vis/new" role="button"> <i class="fas fa-plus"></i>  add a vis</a>
+        <% } else { %>
+            <div class="float-md-right d-flex align-items-center mt-3 mt-md-0 ">
+                Want to contribute? <a class="btn btn-blue" href="#" role="button" data-toggle="modal" data-target="#modalLogIn"> Log in »</a>
+            </div>
+        <% } %>
     </div>
     <div class="row">
         <% charts.forEach(chart => { %>

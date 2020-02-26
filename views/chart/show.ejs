@@ -1,10 +1,11 @@
 <%- include("../partials/header") %>
+<%- include("../partials/loginModal") %>
 
 <div class="container">
     <br>
     <h1 class="display-6 mt-5"><%= chart.type %></h1>
-    <hr>
-
+    <hr class="mb-1">
+    <p  class="label-author">Posted by <span><%= chart.author.username %></span></p>
     <div class="row mt-5">
         <!-- left-side bar	 -->
         <div class="col-sm-12 col-md-5">
@@ -38,21 +39,26 @@
     </div>
     <br><br><br>
     <div class="row my-5">
-        <h4>OTHER REFERENCES</h4>
-        <a class="btn btn-blue btn-sm ml-auto" href="#" role="button" data-toggle="modal" data-target="#modalAddReference"> <i class="fas fa-plus"></i>  add a reference</a>
-        <div class="container">
-            <div class="row">
-                <% chart.samples.forEach(chart =>{ %>
-                    <div class="col-10 col-md-3 my-3 px-3 px-md-1">
-                        <div>
-                            <a href="<%= chart.url %>" target="_blank">
-                                <img src="<%=  chart.thumbnail_url %>" class="img-fluid img-vis-sample">
-                            </a>
-                        </div>
-                    </div>
-                <% }); %>
+        <h4 class="">OTHER REFERENCES</h4>
+        <% if (currentUser) { %>
+            <a class="btn btn-blue btn-sm ml-auto" href="#" role="button" data-toggle="modal" data-target="#modalAddReference"> <i class="fas fa-plus"></i>  add a reference</a>
+        <% } else { %>
+            <div class="d-flex align-items-center ml-auto mt-3 mt-md-0 ">
+                Want to contribute? <a class="btn btn-blue" href="#" role="button" data-toggle="modal" data-target="#modalLogIn"> Log in »</a>
             </div>
-        </div>
+        <% } %>
+    </div>
+
+    <div class="row">
+        <% chart.samples.forEach(chart =>{ %>
+            <div class="col-10 col-md-3 my-3 px-3 px-md-1">
+                <div>
+                    <a href="<%= chart.url %>" target="_blank">
+                        <img src="<%=  chart.thumbnail_url %>" class="img-fluid img-vis-sample">
+                    </a>
+                </div>
+            </div>
+        <% }); %>
     </div>
 </div>
 
