@@ -28,4 +28,30 @@ router.post('/', isLoggedIn, (req, res) => {
         .then(() => res.redirect(`/vis/${req.params.visId}`));
 });
 
+// UPDATE - update a specific comment, then redirect somewhere
+router.put('/:id', checkCommentOwnership, (req, res) => {
+    const commentId = req.params.id;
+    Comment.findByIdAndUpdate(commentId, req.body, (err, comment) => {
+        if(err) {console.log(err); res.redirect("back");}
+
+        res.redirect(`/vis/${req.params.visId}`);
+    });
+});
+
+// DELETE - delete a particular comment, then redirect somewhere
+router.delete('/:id', checkCommentOwnership, (req, res) => {
+    const commentId = req.params.id;
+
+    Comment.findByIdAndDelete(commentId)
+        .catch(err => res.redirect('back'))
+        .then(comment => Chart.findById(req.params.visId)
+                .catch(err => res.redirect('back'))
+                .then(vis => {
+                    vis.comments = vis.comments.filter(v => !v.id.equals(commentId));
+                    return vis.save();
+                }))
+        .catch(err => res.redirect('back'))
+        .then(() => res.redirect(`/vis/${req.params.visId}`));
+});
+
 module.exports = router;
