@@ -244,7 +244,9 @@ const seed = async () => {
     });
 
     // charts
-    const user = await User.create({username: 'roberta.crmota@gmail.com', password: '123456'});
+
+    const user = await User.deleteMany({})
+                    .then(() => User.register({username: 'roberta.crmota@gmail.com'}, '123456'));
     const author = { id: user._id, username: user.username };
 
     Chart.deleteMany({})

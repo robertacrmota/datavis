@@ -87,7 +87,7 @@
                     <p class="font-weight-bold"> <%= comment.author.username %> </p>
                     <% if (currentUser && currentUser._id.equals(comment.author.id)) { %>
                         <div class="float-right">
-                            <%- include('../partials/commentEditModal') %>
+                            <%- include('../partials/commentEditModal', {chart, comment}) %>
                             <button class="btn btn-grey p-0" class="card-link" href="#" role="button" data-toggle="modal" data-target="#modalCommentEdit"><i class="far fa-edit"></i></button>
                             <form class="d-inline" action="/vis/<%= chart.id %>/comments/<%= comment.id %>?_method=DELETE" method="POST">
                                 <button class="btn btn-grey p-0" ><i class="far fa-trash-alt"></i></button>
