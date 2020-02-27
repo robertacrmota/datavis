@@ -169,8 +169,8 @@ const charts = [
                 url: "https://www.visualcinnamon.com/portfolio/bussed-out"
             },
             {
-                thumbnail_url: "https://lh3.googleusercontent.com/proxy/PQzIdHW76k8bXYP6MBIEVvbebdaK5SS1YW14bedSkneDC9BUo_gnnl0dXbeSSw9Ay2Xw_z69MrPMCGfHOOKH4m1olL2TLvKFSYlz8yMm6Ss2ii0edplAlQFrmyI",
-                url: "http://www.datasketch.es/december/"
+                thumbnail_url: "https://d33wubrfki0l68.cloudfront.net/9937af5c46ea0c505c13c86501f97c909ad338b8/47775/img/portfolio/2016/top-2000/top_2000_detail_2.jpg",
+                url: "https://www.visualcinnamon.com/portfolio/top2000"
             }
         ],
         comments: [{
