@@ -15,3 +15,10 @@ Some relevant topics covered in this project:
 * Restful routing
 * Responsive layout
 * ...
+
+Technologies:
+
+* NodeJS, ExpressJS, EJS, PassportJS, Mongoose, MongoDB
+* D3.js, Bootstrap, Javascript, HTML, CSS
+
+
