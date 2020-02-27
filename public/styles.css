@@ -15,6 +15,10 @@ select option:checked {
     color: #fff !important;
 }
 
+.container-card-image img {
+    height: 220px;
+    object-fit: cover;
+}
 .container-card-image {
     position: relative;
 }
@@ -72,6 +76,8 @@ select option:checked {
 }
 
 .img-vis-sample {
+    height: 175px;
+    object-fit: cover;
     filter: grayscale(100%);
     opacity: .5;
     transition: .2s;

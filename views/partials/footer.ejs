@@ -1,114 +1,13 @@
+
+    <svg opacity=".15" width="5" height="5" style="position:absolute; top:100px; left: 200px; overflow: visible; z-index:-1">
+        <g id="g-tree" transform="translate(300, 500)" filter="url(#gooey)" />
+    </svg>
+
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
     <script src="https://d3js.org/d3.v5.min.js"></script>
-   <script>
-       //SVG filter for the gooey effect
-       //Code from http://tympanus.net/codrops/2015/03/10/creative-gooey-effects/
-       var svg = d3.select("svg");
-       var defs = svg.append('defs');
-       var filter = defs.append('filter').attr('id','gooey');
-       filter.append('feGaussianBlur')
-           .attr('in','SourceGraphic')
-           .attr('stdDeviation','10')
-           .attr('result','blur');
-       filter.append('feColorMatrix')
-           .attr('in','blur')
-           .attr('mode','matrix')
-           .attr('values','1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7')
-           .attr('result','gooey');
-       filter.append('feComposite')
-           .attr('in','SourceGraphic')
-           .attr('in2','gooey')
-           .attr('operator','atop');
-
-       var data = [
-           {xLoc: -50, seed:1},
-           {xLoc: 0, seed:2},
-           {xLoc: 50, seed:3}
-       ];
-
-       var margin = {top: 30, right: 30, bottom: 30, left: 30},
-           width = Math.min(400, $(".chart").width() - margin.left - margin.right),
-           rectWidth = 200,
-           rectHeight = 30;
-
-       var w = window,
-           d = document,
-           e = d.documentElement,
-           g = d.getElementsByTagName('body')[0],
-           height = (w.innerHeight || e.clientHeight || g.clientHeight) - margin.top - margin.bottom - 20;
-
-       //Create scale
-       var scale = d3.scaleLinear()
-           .domain([-1, 1])
-           .range([Math.min(height/2, 150), -1 * Math.min(height/2, 150)]);
-
-       //Create SVG
-       var svg = d3.select("g");
-
-       //SVG filter for the gooey effect
-       //Code taken from http://tympanus.net/codrops/2015/03/10/creative-gooey-effects/
-       var defs = svg.append('defs');
-       var filter = defs.append('filter').attr('id','gooey')
-       filter.append('feGaussianBlur')
-           .attr('in','SourceGraphic')
-           .attr('stdDeviation','10')
-           .attr('result','blur');
-       filter.append('feColorMatrix')
-           .attr('in','blur')
-           .attr('mode','matrix')
-           .attr('values','1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 19 -9')
-           .attr('result','gooey');
-       filter.append('feComposite')
-           .attr('in','SourceGraphic')
-           .attr('in2','goo')
-           .attr('operator','atop');
-
-       //Append circle at center
-       svg.append("rect")
-           .attr("class", "centerRect")
-           .attr("width", rectWidth)
-           .attr("height", rectHeight)
-           .attr("x", -rectWidth/2)
-           .attr("y", -rectHeight/2)
-           .style("fill", "#81BC00");
-
-
-       //Create a circle that will move out of the center circle
-       svg.selectAll(".flyCircle")
-           .data(data).enter()
-           .append("circle")
-           .attr("class", "flyCircle")
-           .attr("cx", function(d,i) {return d.xLoc ;})
-           .attr("cy", 0)
-           .attr("r", 15)
-           .style("fill", "#81BC00")
-           .transition().duration(1000).delay(function(d,i) { return i*300; })
-           .attr("cy", function(d) { return random(d.seed++); })
-           .on("end", update);
-
-       //Continuously keep the circle flying out
-       function update() {
-           var circle = d3.select(this);
-           function repeat() {
-               circle = circle
-                   .transition().duration(1000)
-                   .attr("cy", 0)
-                   .transition().duration(1000)
-                   .attr("cy", function(d) { return random(d.seed++); })
-                   .on("end", repeat);
-           };
-
-           repeat();
-       }//update
-
-       //Random number generator depending on input
-       function random(d) {
-           var x = Math.sin(d) * 10000;
-           var rand = x - Math.floor(x);
-           return (Math.floor(Math.random()*2) == 1 ? 1 : -1) * (scale(rand) + 20);
-       }
-   </script>
+    <script src="/data/flare-2.js"></script>
+    <script src="/js/tree.js"></script>
    </body>
 </html>

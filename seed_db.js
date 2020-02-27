@@ -244,8 +244,8 @@ const seed = async () => {
     });
 
     // charts
-    const userDefault = await User.findOne({username: 'roberta.cmota@gmail.com'});
-    const authorDefault = { id: userDefault._id, username: userDefault.username };
+    const user = await User.create({username: 'roberta.crmota@gmail.com', password: '123456'});
+    const author = { id: user._id, username: user.username };
 
     Chart.deleteMany({})
         .catch(err => console.log(err))
@@ -253,13 +253,14 @@ const seed = async () => {
             console.log("successfully deleted all chart documents!");
 
             charts.forEach(chart => {
-                chart.comments = chart.comments.map(comment => Object.assign(comment, {author: authorDefault}));
+                chart.comments = chart.comments.map(comment => Object.assign(comment, {author}));
 
                 if (chart.comments.length) {
                      Comment.create(chart.comments)
                         .catch(err => console.log(err))
                         .then(comments => {
                             chart.comments = comments.map(comment => comment._id);
+
                             Chart.create(chart).catch(err => console.log(err));
                         });
                 }

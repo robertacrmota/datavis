@@ -7,10 +7,12 @@ const   methodOverride          = require('method-override'),
         passportLocalMongoose   = require("passport-local-mongoose"),
         User                    = require('./models/user');
 
-
 const app = express();
 const port = 3000;
 
+// ----------------------------------------------------------------
+// CONFIGS
+// ----------------------------------------------------------------
 
 app.use(express.static(__dirname + '/public'));
 app.set('views', __dirname + '/views');
@@ -35,7 +37,10 @@ app.use(function(req, res, next) {
     next();
 });
 
-// DB --------------------------------------------------------------
+// ----------------------------------------------------------------
+// DB
+// ----------------------------------------------------------------
+
 const seed = require('./seed_db');
 
 // set db configurations
@@ -51,7 +56,10 @@ mongoose.connect('mongodb://localhost/datavisApp')
     console.log("Error on db connection: " + err.message);
 });
 
-// HTTP REQUESTS -------------------------------------------------------
+// ----------------------------------------------------------------
+// RESTFUL ROUTES
+// ----------------------------------------------------------------
+
 const   BookRouter      = require('./routes/book'),
         ChartRouter     = require('./routes/chart'),
         CommentRouter   = require('./routes/comment'),
@@ -72,8 +80,9 @@ app.use("/vis/:visId/comments", CommentRouter);
 
 app.get('/', (req, res) => res.redirect('/vis'));
 
-
-// SERVER LISTENER -----------------------------------------------------
+// ----------------------------------------------------------------
+// SERVER LISTENER
+// ----------------------------------------------------------------
 app.listen(port, () => console.log(`Server app listening on port ${port}!`));
 
 
