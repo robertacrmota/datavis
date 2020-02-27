@@ -18,7 +18,7 @@ Some relevant topics covered in this project:
 
 Technologies:
 
-* NodeJS, ExpressJS, EJS, PassportJS, Mongoose, MongoDB
+* NodeJS, ExpressJS, EJS, PassportJS, Mongoose, MongoDB, REST API
 * D3.js, Bootstrap, Javascript, HTML, CSS
 
 
